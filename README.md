@@ -32,3 +32,6 @@ This project presents an AI-powered urban transportation solution designed to re
 - Enhances transparency, safety, and accessibility for commuters.  
 - Encourages adoption of green transport alternatives.  
 - Transforms fragmented systems into cohesive, data-driven ecosystems.
+
+##PPT link:
+https://drive.google.com/drive/folders/1QeRlVpdyH6GsdnNtus0YV3VDTnLAnYhh?usp=drive_link
