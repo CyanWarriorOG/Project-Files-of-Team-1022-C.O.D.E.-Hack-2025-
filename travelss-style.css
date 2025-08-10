@@ -1,0 +1,117 @@
+/* Glassmorphic Travel UI — styles.css */
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+  background-size: cover;
+  padding: 40px;
+  margin: 0;
+  color: #000;
+}
+
+.form-box {
+  max-width: 500px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+  padding: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-top: 12px;
+}
+
+input, button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.3);
+  color: #000;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+}
+
+input::placeholder {
+  color: #555;
+}
+
+button.primary {
+  background: #ffd700;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.primary:hover {
+  background: #ffcc00;
+  color: #000;
+}
+
+.results {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.results h4 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 6px;
+}
+
+.results a {
+  display: block;
+  margin: 8px 0;
+  padding: 12px;
+  background: #4ea8ff;
+  color: #000;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.results a:hover {
+  background: #2f7fe9;
+  color: #fff;
+}
+
+/* Hotel buttons override to green */
+.results a[href*="hotels"] {
+  background: #4caf50;
+  color: #000;
+}
+
+.results a[href*="hotels"]:hover {
+  background: #388e3c;
+  color: #fff;
+}
+
+.loading {
+  font-style: italic;
+  opacity: 0.8;
+  color: #000;
+  margin-top: 10px;
+}
+
+.results
