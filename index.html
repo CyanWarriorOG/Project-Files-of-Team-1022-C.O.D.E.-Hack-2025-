@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>AURA Travel[Prototype]</title>
+  <link rel="stylesheet"
+        href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar glass">
+    <h1>AURA Travel[Prototype]</h1>
+    <h3>Powered by AI</h3>
+    <nav>
+      <a href="#weather">Weather</a>
+      <a href="#bus">Bus</a>
+      <a href="#flights">Flights</a>
+      <a href="#chatbot">AI Assistant</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero glass">
+    <h2>Plan Your Journey</h2>
+    <input type="text" id="destination" placeholder="Where to?" />
+    <button id="aiSuggestBtn" class="primary">Search</button>
+    <div id="destinationResults"
+         style="margin-top:15px; text-align:left; color:white;
+                max-width:600px; margin-left:auto; margin-right:auto;"></div>
+  </section>
+
+  <!-- MODULES -->
+  <section class="modules">
+    <div class="card glass">
+      <a href="weather-home.html" target="_blank">🌦️ Open Weather</a>
+    </div>
+    <div class="card glass">
+      <a href="map-home.html" target="_blank">🗺️ Open Maps</a>
+    </div>
+    <div class="card glass">
+      <a href="airway-home.html" target="_blank">✈️ Airways Options</a>
+    </div>
+    <div class="card glass">
+      <a href="taxi-home.html" target="_blank">🚕 Taxi Available</a>
+    </div>
+    <div class="card glass">
+      <a href="public-home.html" target="_blank">🚇 Public Transport</a>
+    </div>
+
+    <!-- AI Chatbot card -->
+    <div id="chatbotCard" class="card glass" style="cursor:pointer;">
+      💬 AI Chatbot
+    </div>
+
+    <!-- Travel Suggestions card -->
+    <div class="card glass" style="cursor:pointer;">
+      <a href="travel_suggestion.html"
+         style="color:inherit; text-decoration:none; display:block;
+                width:100%; height:100%;">
+        🧠 Travel Suggestions
+      </a>
+    </div>
+
+  </section>
+
+  <!-- CALCULATOR -->
+  <section class="calculator glass">
+    <h3>🧮 Trip Cost Calculator</h3>
+    <input type="number" id="distance" placeholder="Distance (km)" />
+    <input type="number" id="fuel" placeholder="Fuel Cost (₹/L)" />
+    <select id="mode">
+      <option value="car">Car (15 km/L)</option>
+      <option value="bike">Bike (40 km/L)</option>
+      <option value="bus">Bus (₹2/km)</option>
+    </select>
+    <button id="calcBtn" class="primary">Calculate</button>
+    <p id="costResult"></p>
+  </section>
+
+  <!-- MAP -->
+  <section class="map-section glass">
+    <h3>📍 Your Location Map</h3>
+    <div id="map"></div>
+  </section>
+
+ <!-- ABOUT -->
+  <section class="about glass">
+    <h3>Our Vision</h3>
+    <div class="members">
+      <div class="member-card">
+        <h4>To help to plan your travel for time & cost effectively</h4>
+        <p></p>
+      </div>
+      <div class="member-card">
+        <h4>AI Features</h4>
+        <p>AI commute suggestor, AI Travel Planner, AI doubt solver & more</p>
+      </div>
+      <div class="member-card">
+        <h4>How we are helping</h4>
+        <p>We help you to plan & book your travel, suggest you new places to your liking and much more</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="glass">
+    <p>Made For CodeHack 2025</p>
+  </footer>
+
+  <!-- AI Widget -->
+  <div id="ai-widget" class="ai-widget">
+    <button id="ai-launcher" class="ai-launcher" aria-label="Open AI Assistant">🤖</button>
+    <div id="ai-panel" class="ai-panel glass" role="dialog" aria-label="AI Assistant" aria-modal="false">
+      <div class="ai-header">
+        <strong>AI Assistant</strong>
+        <button id="ai-close" class="ghost" aria-label="Close">×</button>
+      </div>
+      <div id="ai-body" class="ai-body" aria-live="polite">
+        <div class="msg bot">Hi! Ask me: <em>places in Paris</em>, <em>weather in Tokyo</em>.</div>
+      </div>
+      <div class="ai-input">
+        <input id="ai-input" type="text"
+               placeholder="Ask about costs, routes, weather, places…" />
+        <button id="ai-send" class="primary">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js" defer></script>
+
+  <!-- Ensure AI Chatbot card opens widget -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const chatbotCard = document.getElementById('chatbotCard');
+      const aiPanel = document.getElementById('ai-panel');
+      if (chatbotCard && aiPanel) {
+        chatbotCard.addEventListener('click', () => {
+          aiPanel.classList.add('open'); // directly open panel
+          setTimeout(() => {
+            document.getElementById('ai-input').focus();
+          }, 100);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

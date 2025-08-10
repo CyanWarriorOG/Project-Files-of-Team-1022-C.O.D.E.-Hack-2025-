@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flight Schedules</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://www.travelandleisure.com/thmb/ii7JDFPx8t3xuk7-D3CI-FHqNnY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/TAL-lead-image-LONGESTFLIGHTS0625-99692df1298a484f886dd6709211a21b.jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    h1 {
+      color: white;
+      background-color: rgba(0,0,0,0.6);
+      padding: 15px 25px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .airline-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .airline-box {
+      width: 180px;
+      height: 120px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 4px solid #000;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #000;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+    }
+
+    .airline-box:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>✈️ Flight Schedules</h1>
+
+  <div class="airline-boxes">
+    <a class="airline-box" href="https://www.airindia.com/" target="_blank">Air India</a>
+    <a class="airline-box" href="https://www.qatarairways.com/" target="_blank">Qatar Airways</a>
+    <a class="airline-box" href="https://www.airasia.com/" target="_blank">AirAsia</a>
+    <a class="airline-box" href="https://www.emirates.com/" target="_blank">Emirates</a>
+    <a class="airline-box" href="https://www.indigo.in/" target="_blank">IndiGo</a>
+  </div>
+
+</body>
+</html>

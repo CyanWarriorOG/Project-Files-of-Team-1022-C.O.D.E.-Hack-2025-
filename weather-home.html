@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WeatherGlass</title>
+  <link rel="stylesheet" href="weather-styles.css" />
+</head>
+<body>
+  <div class="search-wrapper">
+    <div class="search-bar">
+      <input type="text" class="glass-search" id="cityInput" placeholder="Search city..." />
+      <button class="search-btn" onclick="searchCity()">🔍</button>
+    </div>
+  </div>
+  <div class="toggle-wrapper">
+    <button class="toggle-btn" onclick="toggleTheme()">Toggle Dark Mode</button>
+  </div>
+  <div class="weather-container" id="weatherDisplay"></div>
+  <script src="weather-script.js"></script>
+</body>
+</html>

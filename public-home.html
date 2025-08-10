@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Public Transport</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://images.pexels.com/photos/106773/pexels-photo-106773.jpeg?cs=srgb&dl=pexels-justin-hamilton-16109-106773.jpg&fm=jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    h1 {
+      color: white;
+      background-color: rgba(0,0,0,0.6);
+      padding: 15px 25px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .transport-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .transport-box {
+      width: 200px;
+      height: 130px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 4px solid #000;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #000;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+    }
+
+    .transport-box:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚆 Public Transport</h1>
+
+  <div class="transport-boxes">
+    <!-- Metro -->
+    <a class="transport-box" href="http://www.delhimetrorail.com/" target="_blank">Delhi Metro</a>
+    <a class="transport-box" href="https://www.mumbaimetro.one/" target="_blank">Mumbai Metro</a>
+    <a class="transport-box" href="https://bangaloremetro.co.in/" target="_blank">Bengaluru Metro</a>
+
+    <!-- Bus -->
+    <a class="transport-box" href="https://dtc.delhi.gov.in/" target="_blank">Delhi DTC Buses</a>
+    <a class="transport-box" href="https://msrtc.maharashtra.gov.in/" target="_blank">MSRTC Buses</a>
+    <a class="transport-box" href="https://www.ksrtc.in/" target="_blank">KSRTC Buses</a>
+
+    <!-- Train -->
+    <a class="transport-box" href="https://www.irctc.co.in/" target="_blank">IRCTC Trains</a>
+    <a class="transport-box" href="https://enquiry.indianrail.gov.in/" target="_blank">Train Enquiry</a>
+    <a class="transport-box" href="https://indiarailinfo.com/" target="_blank">India Rail Info</a>
+  </div>
+
+</body>
+</html>

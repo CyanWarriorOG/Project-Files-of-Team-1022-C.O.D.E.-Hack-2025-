@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Taxi Services</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://cdna.artstation.com/p/assets/images/images/049/855/732/large/masoud-rezai-taxi-final.jpg?1653482063');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    h1 {
+      color: white;
+      background-color: rgba(0,0,0,0.6);
+      padding: 15px 25px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .taxi-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .taxi-box {
+      width: 180px;
+      height: 120px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 4px solid #000;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #000;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+    }
+
+    .taxi-box:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚖 Taxi Services</h1>
+
+  <div class="taxi-boxes">
+    <a class="taxi-box" href="https://www.olacabs.com/" target="_blank">Ola Cabs</a>
+    <a class="taxi-box" href="https://www.uber.com/" target="_blank">Uber</a>
+    <a class="taxi-box" href="https://www.meru.in/" target="_blank">Meru Cabs</a>
+    <a class="taxi-box" href="https://www.savaari.com/" target="_blank">Savaari</a>
+    <a class="taxi-box" href="https://www.rapido.bike/" target="_blank">Rapido</a>
+  </div>
+
+</body>
+</html>

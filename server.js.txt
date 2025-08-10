@@ -1,0 +1,30 @@
+// server.js
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { Configuration, OpenAIApi } = require('openai');
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+
+const configuration = new Configuration({
+  apiKey: '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',
+});
+const openai = new OpenAIApi(configuration);
+
+app.post('/chat', async (req, res) => {
+  const { message } = req.body;
+  try {
+    const completion = await openai.createChatCompletion({
+      model: 'gpt-4',
+      messages: [{ role: 'user', content: message }],
+    });
+    res.json({ reply: completion.data.choices[0].message.content });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));

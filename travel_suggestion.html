@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Travel Suggestions</title>
+<link rel="stylesheet" href="styles.css" />
+<style>
+  body { font-family: sans-serif; background: #e0f0ff; padding: 20px; }
+  .form-box { max-width: 480px; margin: auto; background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.15);}
+  input, button { width: 100%; margin: 10px 0; padding: 12px; font-size: 16px; border-radius: 8px; border: 1px solid #bbb; box-sizing: border-box; }
+  button.primary { background: #4ea8ff; color: #000; border: none; cursor: pointer; font-weight: bold; transition: 0.3s ease; }
+  button.primary:hover { background: #2f7fe9; color: #fff; }
+  .results { margin-top: 20px; }
+  .results h4 { margin-bottom: 10px; }
+  .results a { display: block; margin: 6px 0; padding: 10px; background: #4ea8ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: 600; }
+  .results a:hover { background: #2f7fe9; color: #fff; }
+  .loading { font-style: italic; opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<section class="form-box">
+  <h2>Travel Suggestions</h2>
+  <label for="fromCity">Departure City</label>
+  <input type="text" id="fromCity" placeholder="Enter Departure City" autocomplete="off" />
+  <label for="toCity">Destination City</label>
+  <input type="text" id="toCity" placeholder="Enter Destination City" autocomplete="off" />
+  <label for="travelDate">Travel Date</label>
+  <input type="date" id="travelDate" />
+  <button class="primary" id="searchBtn">Find Flights & Hotels</button>
+  <div class="results" id="results"></div>
+</section>
+
+<script>
+// Small subset of popular airports with lat/lon and IATA codes (expandable)
+const airports = [
+  { code: "DEL", city: "Delhi", lat: 28.5562, lon: 77.1000 },
+  { code: "BOM", city: "Mumbai", lat: 19.0896, lon: 72.8656 },
+  { code: "BLR", city: "Bengaluru", lat: 13.1986, lon: 77.7066 },
+  { code: "MAA", city: "Chennai", lat: 12.9941, lon: 80.1709 },
+  { code: "CCU", city: "Kolkata", lat: 22.6543, lon: 88.4467 },
+  { code: "CDG", city: "Paris", lat: 49.0097, lon: 2.5479 },
+  { code: "HND", city: "Tokyo", lat: 35.5494, lon: 139.7798 },
+  { code: "JFK", city: "New York", lat: 40.6413, lon: -73.7781 },
+  { code: "LHR", city: "London", lat: 51.4700, lon: -0.4543 }
+];
+
+// Haversine formula to calculate distance between two lat/lon points in km
+function getDistance(lat1, lon1, lat2, lon2) {
+  function toRad(x) { return x * Math.PI / 180; }
+  let R = 6371;
+  let dLat = toRad(lat2 - lat1);
+  let dLon = toRad(lon2 - lon1);
+  let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+          Math.sin(dLon/2) * Math.sin(dLon/2);
+  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
+// Finds nearest airport IATA code given lat/lon
+function findNearestAirport(lat, lon) {
+  let minDist = Infinity;
+  let nearestCode = null;
+  airports.forEach(airport => {
+    let dist = getDistance(lat, lon, airport.lat, airport.lon);
+    if (dist < minDist) {
+      minDist = dist;
+      nearestCode = airport.code;
+    }
+  });
+  return nearestCode; // may be null if airports list empty
+}
+
+async function fetchCoordinates(city) {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  if (data.length === 0) throw new Error(`City "${city}" not found`);
+  return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+}
+
+// Construct OTA URLs with airport codes and date params
+function constructFlightUrls(fromCode, toCode, date) {
+  const ddmmyy = date.split('-').reverse().join('/');
+  const yatraDate = date.split('-').reverse().join('-');
+  
+  return [
+    {
+      name: "MakeMyTrip Flights",
+      url: `https://www.makemytrip.com/flight/search?itinerary=${fromCode}-${toCode}-${ddmmyy}&paxType=A-1_C-0_I-0&tripType=O&cabinClass=E`
+    },
+    {
+      name: "EaseMyTrip Flights",
+      url: `https://www.easemytrip.com/flights/flight-listing.html?tripType=O&from=${fromCode}&to=${toCode}&depDate=${date}&adult=1&child=0&infant=0&class=E`
+    },
+    {
+      name: "Yatra Flights",
+      url: `https://flight.yatra.com/air-search?classCode=E&origin=${fromCode}&destination=${toCode}&flight_depart_date=${yatraDate}&ADT=1&CHD=0&INF=0`
+    }
+  ];
+}
+
+function constructHotelUrls(destination) {
+  const destUnderscore = destination.replace(/\s+/g, '_');
+  const destDash = destination.replace(/\s+/g, '-');
+  return [
+    {
+      name: "MakeMyTrip Hotels",
+      url: `https://www.makemytrip.com/hotels/${destUnderscore}-hotels.html`
+    },
+    {
+      name: "EaseMyTrip Hotels",
+      url: `https://www.easemytrip.com/hotels/${destination}.html`
+    },
+    {
+      name: "Yatra Hotels",
+      url: `https://hotel.yatra.com/hotels-in-${destDash}.html`
+    }
+  ];
+}
+
+document.getElementById('searchBtn').addEventListener('click', async () => {
+  let fromCity = document.getElementById('fromCity').value.trim();
+  let toCity = document.getElementById('toCity').value.trim();
+  let travelDate = document.getElementById('travelDate').value;
+
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = '';
+
+  if (!fromCity || !toCity || !travelDate) {
+    alert('Please fill in all fields');
+    return;
+  }
+
+  resultsDiv.innerHTML = '<p class="loading">Locating airports and preparing searches...</p>';
+
+  try {
+    const fromCoords = await fetchCoordinates(fromCity);
+    const toCoords = await fetchCoordinates(toCity);
+
+    const fromAirport = findNearestAirport(fromCoords.lat, fromCoords.lon);
+    const toAirport = findNearestAirport(toCoords.lat, toCoords.lon);
+
+    if (!fromAirport) throw new Error(`No nearby airport found for departure city: ${fromCity}`);
+    if (!toAirport) throw new Error(`No nearby airport found for destination city: ${toCity}`);
+
+    const flightLinks = constructFlightUrls(fromAirport, toAirport, travelDate);
+    const hotelLinks = constructHotelUrls(toCity);
+
+    resultsDiv.innerHTML = '<h4>Flight Search</h4>' +
+      flightLinks.map(f => `<a href="${f.url}" target="_blank" rel="noopener">${f.name}</a>`).join('') +
+      '<h4>Hotel Search</h4>' +
+      hotelLinks.map(h => `<a href="${h.url}" target="_blank" rel="noopener">${h.name}</a>`).join('');
+
+  } catch (err) {
+    resultsDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+  }
+});
+</script>
+
+</body>
+</html>
